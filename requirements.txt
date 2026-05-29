@@ -5,7 +5,7 @@ langchain-community
 langchain-groq
 langchain-text-splitters
 chromadb
-sentence-transformers
+langchain-huggingface
 requests
 beautifulsoup4
 python-dotenv
