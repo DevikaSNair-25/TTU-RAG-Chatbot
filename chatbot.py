@@ -1,18 +1,16 @@
-from langchain_community.vectorstores import Chroma
-from langchain_huggingface import HuggingFaceEmbeddings
-from langchain_groq import ChatGroq
 import os
+from langchain_community.vectorstores import Chroma
+from langchain_groq import ChatGroq
+from langchain_huggingface import HuggingFaceEmbeddings
 
-# Load the vector database
+llm = ChatGroq(
+    api_key=os.environ.get("GROQ_API_KEY"),
+    model_name="llama-3.3-70b-versatile"
+)
+
 embedding = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
 db = Chroma(persist_directory="vectordb", embedding_function=embedding)
 retriever = db.as_retriever()
-
-# Load Groq LLM
-llm = ChatGroq(
-    api_key="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",
-    model_name="llama-3.3-70b-versatile"
-)
 
 def ask(question):
     docs = retriever.invoke(question)
